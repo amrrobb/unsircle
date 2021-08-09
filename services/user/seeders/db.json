@@ -1,0 +1,122 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "email": "admin@mail.com",
+            "password": "password"
+        },
+        {
+            "id": 2,
+            "email": "admin2@mail.com",
+            "password": "password"
+        },
+        {
+            "id": 3,
+            "email": "admin3@mail.com",
+            "password": "password"
+        },
+        {
+            "id": 4,
+            "email": "admin4@mail.com",
+            "password": "password"
+        },
+        {
+            "id": 5,
+            "email": "admin5@mail.com",
+            "password": "password"
+        },
+        {
+            "id": 6,
+            "email": "admin6@mail.com",
+            "password": "password"
+        }
+    ],
+    "permissions": [
+        {
+            "userId": 1,
+            "canAdd": true,
+            "canEdit": true,
+            "canDelete": true,
+            "canView": true
+        },
+        {
+            "userId": 2,
+            "canAdd": true,
+            "canEdit": false,
+            "canDelete": false,
+            "canView": false
+        },
+        {
+            "userId": 3,
+            "canAdd": false,
+            "canEdit": true,
+            "canDelete": false,
+            "canView": false
+        },
+        {
+            "userId": 4,
+            "canAdd": false,
+            "canEdit": false,
+            "canDelete": true,
+            "canView": false
+        },
+        {
+            "userId": 5,
+            "canAdd": false,
+            "canEdit": false,
+            "canDelete": false,
+            "canView": true
+        },
+        {
+            "userId": 6,
+            "canAdd": false,
+            "canEdit": false,
+            "canDelete": false,
+            "canView": false
+        }
+    ],
+    "items": [
+        {
+            "name": "Kemeja Kotak-kotak",
+            "amount": 120,
+            "price": 45000,
+            "category": "Pakaian"
+        },
+        {
+            "name": "Kemeja Garis-garis",
+            "amount": 100,
+            "price": 55000,
+            "category": "Pakaian"
+        },
+        {
+            "name": "Kemeja Polos",
+            "amount": 10,
+            "price": 145000,
+            "category": "Pakaian"
+        },
+        {
+            "name": "Komik Naruto",
+            "amount": 40,
+            "price": 55000,
+            "category": "Buku"
+        },
+        {
+            "name": "Komik Doraemon",
+            "amount": 30,
+            "price": 25000,
+            "category": "Buku"
+        },
+        {
+            "name": "Kipas Angin Kosmos",
+            "amount": 10,
+            "price": 205000,
+            "category": "Elektronik"
+        },
+        {
+            "name": "Kulkas Pilip",
+            "amount": 14,
+            "price": 1205000,
+            "category": "Elektronik"
+        }       
+    ]
+}
