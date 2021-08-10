@@ -54,7 +54,7 @@ export default new Vuex.Store({
         )
       
         commit('LOGIN_STATUS', true)
-        router.push({ path: '/' })
+        router.push({ path: '/' }).catch(() =>{})
       }
       catch (err) {
         dispatch('errorHandler', err)
@@ -75,7 +75,7 @@ export default new Vuex.Store({
           )
     
           commit('LOGIN_STATUS', false)
-          router.push({ path: '/' })
+          router.push({ path: '/' }).catch(() =>{})
 
         } 
       })
@@ -122,11 +122,11 @@ export default new Vuex.Store({
         })
         Swal.fire(
           'Add Item!',
-          `Success add`,
+          `Success add item`,
           'success'
         )
         dispatch('fetchItem')
-        router.push({ path: '/' })
+        router.push({ path: '/' }).catch(() =>{})
       }
       catch(err) {
         dispatch('errorHandler', err)
@@ -144,11 +144,11 @@ export default new Vuex.Store({
         })
         Swal.fire(
           'Edit Item!',
-          `Success edit`,
+          `Success edit item`,
           'success'
         )
         dispatch('fetchItem')
-        router.push({ path: '/' })
+        router.push({ path: '/' }).catch(() =>{})
       }
       catch(err) {
         dispatch('errorHandler', err)
@@ -157,19 +157,28 @@ export default new Vuex.Store({
 
     deleteItem: async ({commit, dispatch}, payload) => {
       try {
-        const {id} = payload
-        await axios.delete(`/barang/${id}`, {
-          headers: {
-            access_token: localStorage.access_token
-          }
+        const result = await Swal.fire({
+          title: 'Delete Confirmation',
+          text: 'Do you want to delete this item?',
+          showDenyButton: true,
+          confirmButtonText: `Yes`,
+          denyButtonText: `No`,
         })
-        Swal.fire(
-          'Edit Item!',
-          `Success delete item`,
-          'success'
-        )
-        dispatch('fetchItem')
-        router.push({ path: '/' })
+        if (result.isConfirmed) {
+          const {id} = payload
+          await axios.delete(`/barang/${id}`, {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          })
+          Swal.fire(
+            'Edit Item!',
+            `Success delete item`,
+            'success'
+          )
+          dispatch('fetchItem')
+          router.push({ path: '/' }).catch(() =>{})
+        } 
       }
       catch(err) {
         dispatch('errorHandler', err)

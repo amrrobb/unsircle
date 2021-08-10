@@ -21,7 +21,9 @@
           Item List
         </h3>
       </div>
-        <button type="button" class="btn btn-outline-primary btn-lg">Add Item</button>
+        <router-link :to="{name: 'Add'}">
+            <button type="button" class="btn btn-outline-primary btn-lg" >Add Item</button>
+        </router-link>
       <div class="container d-flex justify-content-center">
 
         <table class="table" v-show="items">
@@ -41,8 +43,10 @@
                   <router-link :to="{name: 'Detail', params: { id: el.id }}">
                     <button type="button" class="btn btn-outline-primary">View</button>
                   </router-link>
-                  <button type="button" class="btn btn-outline-primary">Edit</button>
-                  <button type="button" class="btn btn-outline-primary">Delete</button>
+                  <router-link :to="{name: 'Edit', params: { id: el.id }}">
+                    <button type="button" class="btn btn-outline-primary">Edit</button>
+                  </router-link>
+                  <button type="button" class="btn btn-outline-primary" @click.prevent="deleteItem({id: el.id})">Delete</button>
                   
                 </div>
               </td>
@@ -73,7 +77,7 @@ export default {
     ...mapState(['items', 'isLoggedIn', ]),
   },
   methods: {
-    ...mapActions(['fetchItem']),
+    ...mapActions(['fetchItem', 'deleteItem']),
 
   },
   created() {
