@@ -98,9 +98,13 @@ class Controller {
             const data = await Barang.destroy({
                 where: {id}
             })
-            console.log(data);
+            if (data) {
+                res.status(200).json(data)
+            } 
+            else {
+                next({code: 404, message: "Item not found"})
+            }
 
-            res.status(200).json(data)
         }
         catch (err) {
             next({code: 500, message: err.message})
