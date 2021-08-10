@@ -62,16 +62,12 @@
 <script>
 // @ is an alias to /src
 import { mapState, mapActions } from 'vuex'
-import FoodList from '@/components/FoodList.vue'
 export default {
   name: 'Home',
   data() {
     return {
 
     }
-  },
-  components: {
-    FoodList
   },
   computed: {
     ...mapState(['items', 'isLoggedIn', ]),
