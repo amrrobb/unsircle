@@ -11,7 +11,6 @@ class Controller {
             const {data: {permission_token}} = await instancePermissions.get('/permissions', {
                 headers: {access_token}
             })
-            // res.status(200).json(permission_token);
             return permission_token
         }
         catch (err) {

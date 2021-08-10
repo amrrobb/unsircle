@@ -1,12 +1,12 @@
 <template>
-  <section id="navbar">
+  <section id="navbar"> 
       <b-navbar
         toggleable="lg"
         class="shadow fixed-top"
         type="dark"
         variant="dark"
       >
-        <b-navbar-brand class="px-5">Restospective</b-navbar-brand>
+        <b-navbar-brand class="px-5">Application</b-navbar-brand>
         <div class="container-fluid justify-content-end">
           <div class="px-4">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -16,20 +16,13 @@
                   </li>
 
                   <li class="nav-item" v-show="isLoggedIn">
-                      <router-link to="/favorites" class="nav-link">My Favorites</router-link>
-                  </li>
-
-                  <li class="nav-item" v-show="isLoggedIn">
-                      <a class="nav-link" @click.prevent="logout">Sign Out</a>
+                      <a class="nav-link" @click.prevent="logout">Logout</a>
                   </li>
 
                   <li class="nav-item" v-show="!isLoggedIn">
-                     <router-link to="/login" class="nav-link">Sign In</router-link>
+                     <router-link to="/login" class="nav-link">Login</router-link>
                   </li>
 
-                  <li class="nav-item" v-show="!isLoggedIn">
-                     <router-link to="/register" class="nav-link">Sign Up</router-link>
-                  </li>
               </ul>
           </div>
         </div>

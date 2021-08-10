@@ -1,20 +1,28 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <Navbar/>
+    <Navbar class="mb-5 pb-5"/>
     <router-view/>
 
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import Navbar from '@/components/Navbar.vue'
 export default {
   name: 'App',
-  components: { Navbar }
+  components: { Navbar },
+    computed: {
+    ...mapState(['isLoggedIn'])
+  },
+  created () {
+    if (localStorage.access_token) {
+      this.$store.dispatch('loginCheck', true)
+    } 
+    else {
+      this.$store.dispatch('loginCheck', false)
+    }
+  }
 }
 </script>
 

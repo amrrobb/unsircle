@@ -1,79 +1,85 @@
 <template>
-  <div id="home">
-    <div class="text-center my-3 p-2">
-      <h3 class="display-6">
-        Food List
-      </h3>
-    </div>
-    <div class="container d-flex justify-content-center">
-      <FilterBox />
-      <FoodList />
-    </div>
-
-    <nav aria-label="Page navigation example" class="mt-4">
-      <div>
-      <ul class="pagination justify-content-center" >
-        <li class="page-item disabled" v-if="currentPage == 1">
-          <a class="page-link" href="#" tabindex="-1" aria-disabled="true" >Previous</a>
-        </li>
-        <li class="page-item" v-if="currentPage != 1">
-          <a class="page-link" href="#" tabindex="-1" @click.prevent="fetchFood({page: currentPage-1})">Previous</a>
-        </li>
-
-        <li class="page-item" v-for="n in totalPages" :key="n">
-          <a class="page-link" @click.prevent="fetchFood({page: n})"> {{ n }} </a>
-        </li>
-
-        <li class="page-item " v-if="currentPage != totalPages">
-          <a class="page-link" href="#" tabindex="-1" @click.prevent="fetchFood({page: currentPage+1})">Next</a>
-        </li>
-        <li class="page-item disabled" v-if="currentPage == totalPages">
-          <a class="page-link" href="#" tabindex="-1">Next</a>
-        </li>
-      </ul>
+  <div id="home" > 
+    <div v-show="!isLoggedIn">
+      <h2>Welcome to this Application</h2>
+      
+      <div class="d-flex justify-content-center mt-5">
+        <div>
+            <img class="w-25" src="../assets/home.png" alt="" srcset="">
+            
+            <h4>Please login to continue</h4>
+            <router-link :to="{name: 'Login'}">
+              <button type="button" class="btn btn-outline-primary btn-lg">Login</button>
+            </router-link>
+        </div>
       </div>
-    </nav>
-  </div>
+    </div>
+
+    <div v-show="isLoggedIn">
+      <div class="text-center my-3 p-2">
+        <h3 class="display-6">
+          Item List
+        </h3>
+      </div>
+        <button type="button" class="btn btn-outline-primary btn-lg">Add Item</button>
+      <div class="container d-flex justify-content-center">
+
+        <table class="table" v-show="items">
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Name</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(el, i) in items" :key="el.id">
+              <th scope="row">{{i+1}}</th>
+              <td>{{el.name}}</td>
+              <td>
+                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                  <router-link :to="{name: 'Detail', params: { id: el.id }}">
+                    <button type="button" class="btn btn-outline-primary">View</button>
+                  </router-link>
+                  <button type="button" class="btn btn-outline-primary">Edit</button>
+                  <button type="button" class="btn btn-outline-primary">Delete</button>
+                  
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+   
+    </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import { mapState } from 'vuex'
-import FilterBox from '@/components/FilterBox.vue'
+import { mapState, mapActions } from 'vuex'
 import FoodList from '@/components/FoodList.vue'
 export default {
   name: 'Home',
   data() {
     return {
-      currentPage: 1,
-      // totalItems: this.totalItems,
 
     }
   },
   components: {
-    FilterBox, FoodList
+    FoodList
   },
   computed: {
-    ...mapState(['food', 'queryFilter']),
-    totalPages() {
-      return this.food.totalPages
-    }
-
+    ...mapState(['items', 'isLoggedIn', ]),
   },
   methods: {
-    changeCurrentPage(value) {
-      this.currentPage = value
-    },
-    fetchFood(payload) {
-      // console.log(this.queryFilter);
-      this.$store.dispatch('fetchFood', {page: payload.page, query: this.queryFilter} ) 
-      this.changeCurrentPage(payload.page)
-    }
+    ...mapActions(['fetchItem']),
 
   },
   created() {
-    this.fetchFood({page: 1, query: this.queryFilter})
-    
+    if (this.isLoggedIn) {
+      this.fetchItem()
+    }
   }
 
 }
